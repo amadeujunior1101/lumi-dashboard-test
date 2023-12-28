@@ -6,12 +6,14 @@ import pdfIcon from '../assets/pdfIcon.png';
 import { CardComponent } from '../components/card';
 import { SelectComponent } from '../components/select';
 import { TypographyComponent } from '../components/typography';
+import { useLoading } from '../loading.context';
 import api from '../service/api';
 import { IBill, IClientCode, IDownloadPdf, ISelectComponent } from './interfaces/screens.interface';
 
 const BillsScreen = () => {
   const [selectItems, setSelectItems] = useState<ISelectComponent[]>([]);
   const [selectedBills, setSelectedBills] = useState<IBill[]>([]);
+  const { setLoading } = useLoading();
 
   const handleSelectChange = (clientCode: string) => {
     listBills(clientCode);
@@ -44,9 +46,13 @@ const BillsScreen = () => {
       return setSelectedBills([])
     }
 
+    setLoading(false);
+
     try {
       const response = await api.get(`/bills/${clientCode}`);
       const data: { data: IBill[] } = response.data;
+
+      if(data.data) setLoading(false);
 
       const mappedItems = data.data.map(item => ({
         id: item.id,

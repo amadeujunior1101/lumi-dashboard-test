@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { PieComponent } from '../components/pie';
 import { SelectComponent } from '../components/select';
 import { TypographyComponent } from '../components/typography';
+import { useLoading } from '../loading.context';
 import api from '../service/api';
 import { IClientCode, IGraphicItem, ISelectComponent, ISumGraphics } from './interfaces/screens.interface';
 
@@ -11,16 +12,21 @@ const GraphicsScreen = () => {
 
   const [selectItems, setSelectItems] = useState<ISelectComponent[]>([]);
   const [graphicsItems, setGraphicsItems] = useState<IGraphicItem[]>([]);
+  const { setLoading } = useLoading();
 
   const handleSelectChange = (selectCode: string) => {
     listBillsByClientCodeData(selectCode)
   };
 
   const listClients = async () => {
+    setLoading(true);
+
     try {
       const response = await api.get('/bills/clients');
       const data: { data: IClientCode[] } = response.data;
-
+      
+        if(data.data) setLoading(false);
+  
       const mappedItems = data.data.map(item => ({
         value: item.clientCode,
         label: item.clientCode
@@ -28,16 +34,20 @@ const GraphicsScreen = () => {
 
       setSelectItems(mappedItems);
 
+
     } catch (error) {
       console.error('Erro na chamada à API', error);
     }
   };
 
   const listBillsByClientCodeData = async (clientCode: string | undefined) => {
+     setLoading(true);
     try {
       if(clientCode === undefined) clientCode = '';
       const response = await api.get(`/bills/?client_code=${clientCode}`);
       const data: { data: ISumGraphics } = response.data;
+
+      if(data.data) setLoading(false);
 
       if(data){
         setGraphicsItems([
