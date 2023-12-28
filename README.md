@@ -28,4 +28,5 @@ Este projeto utiliza as seguintes tecnologias:
 	VITE_API_URL=http://localhost:3333
 	
 5 - na pasta lumi-dashboard-test:
+
 	yarn dev ou npm run dev
