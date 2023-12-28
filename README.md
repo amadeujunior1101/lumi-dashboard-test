@@ -9,11 +9,15 @@ Este projeto utiliza as seguintes tecnologias:
 
 ## Executando a Aplicação
 
+- No terminal:
+
 1 - clone do repositorio: 
 
   git clone https://github.com/amadeujunior1101/lumi-dashboard-test
 
-2 - cd lumi-dashboard-test
+2 - acesse a pasta:
+
+  cd lumi-dashboard-test
 
 3 - baixe as dependências:
 
