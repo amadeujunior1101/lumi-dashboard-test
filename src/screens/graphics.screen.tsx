@@ -76,12 +76,13 @@ const GraphicsScreen = () => {
 
   useEffect(() => {
     listClients();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(()=>{
     listBillsByClientCodeData('')
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[selectItems])
+  },[])
 
 
   return (
