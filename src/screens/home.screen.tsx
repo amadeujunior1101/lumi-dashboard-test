@@ -30,10 +30,18 @@ const HomeScreen = () => {
 
       <Typography variant='h6' mt={4}>
         <Typography fontWeight={'bold'}>
-        {emoji}  repositório:
+        {emoji}  repositório frontend:
           </Typography> 
           <Link href="https://github.com/amadeujunior1101/lumi-dashboard-test" target="_blank" rel="noopener noreferrer">
             https://github.com/amadeujunior1101/lumi-dashboard-test
+          </Link>
+      </Typography>
+      <Typography variant='h6' mt={4}>
+        <Typography fontWeight={'bold'}>
+        {emoji}  repositório backend:
+          </Typography> 
+          <Link href="https://github.com/amadeujunior1101/lumi-api-test" target="_blank" rel="noopener noreferrer">
+            https://github.com/amadeujunior1101/lumi-api-test
           </Link>
       </Typography>
       <Typography variant='h6' mt={4}>
