@@ -94,7 +94,7 @@ const GraphicsScreen = () => {
         variant='h4' 
         fontWeight="bold" />
 
-      <SelectComponent label="Escolha o id do cliente" items={selectItems} onChange={handleSelectChange} />
+      <SelectComponent label="Escolha o id do cliente" showListAll={true} items={selectItems} onChange={handleSelectChange} />
       <Grid container spacing={2} marginTop={2}>
         {
           graphicsItems?.map((chartPieItem, index) => (

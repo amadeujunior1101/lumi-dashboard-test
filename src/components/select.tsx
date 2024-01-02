@@ -9,11 +9,12 @@ import React, { useState } from "react";
 
 interface MySelectProps {
   label: string;
+  showListAll?: boolean;
   items: { value: string; label: string }[];
   onChange: (value: string) => void;
 }
 
-const SelectComponent: React.FC<MySelectProps> = ({ label, items, onChange }) => {
+const SelectComponent: React.FC<MySelectProps> = ({ label, showListAll = false, items, onChange }) => {
   const [selectedValue, setSelectedValue] = useState<string>('');
 
   const handleChange = (event: SelectChangeEvent<string>) => {
@@ -32,7 +33,7 @@ const SelectComponent: React.FC<MySelectProps> = ({ label, items, onChange }) =>
         label={label}
         onChange={handleChange}
       >
-        <MenuItem value="">Listar todos(as)</MenuItem>
+        {showListAll && <MenuItem value="">Listar todos(as)</MenuItem>}
         {items.map((item) => (
           <MenuItem key={item.value} value={item.value}>
             {item.label}
