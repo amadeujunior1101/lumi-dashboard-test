@@ -23,6 +23,17 @@ const Sidebar = () => {
     setDrawerOpen(false);
   }; 
 
+  const handleItemClick = (itemName: string) => {
+    setSelectedNavItem(itemName);
+  };
+
+  const getListItemStyle = (itemName: string): React.CSSProperties => {
+    return {
+      color: selectedNavItem === itemName ? '#000' : '',
+      backgroundColor: selectedNavItem === itemName ? '#00ff89' : '',
+    };
+  };
+
   const listItemHoverStyle = {
     color: "#FFF",
     backgroundColor: "#373f3e", 
@@ -57,17 +68,6 @@ const Sidebar = () => {
       </Drawer>
     );
   }
-
-  const handleItemClick = (itemName: string) => {
-    setSelectedNavItem(itemName);
-  };
-
-  const getListItemStyle = (itemName: string): React.CSSProperties => {
-    return {
-      color: selectedNavItem === itemName ? '#000' : '',
-      backgroundColor: selectedNavItem === itemName ? '#00ff89' : '',
-    };
-  };
 
   return (
     <div style={{ backgroundColor: "#373f3e", width: 'auto', flexShrink: 0, position: 'fixed', height: '100%' }}>
