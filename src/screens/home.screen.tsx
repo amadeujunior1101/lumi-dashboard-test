@@ -1,6 +1,6 @@
-import { Link, Typography } from '@mui/material';
 import Container from '@mui/material/Container';
-import { TypographyComponent } from '../components/typography';
+import { Link, Typography } from '@mui/material';
+import { TypographyComponent } from '../components';
 
 const HomeScreen = () => {
 

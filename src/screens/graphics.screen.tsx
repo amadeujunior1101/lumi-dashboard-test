@@ -1,33 +1,31 @@
 import { Grid } from '@mui/material';
-import Container from '@mui/material/Container';
 import { useEffect, useState } from 'react';
-import { PieComponent } from '../components/pie';
-import { SelectComponent } from '../components/select';
-import { TypographyComponent } from '../components/typography';
-import { useLoading } from '../loading.context';
-import api from '../service/api';
-import { IClientCode, IGraphicItem, ISelectComponent, ISumGraphics } from './interfaces/screens.interface';
+import Container from '@mui/material/Container';
+import { useGetClientCodeList, useGetSum } from '../hooks';
+import { PieComponent, SelectComponent, TypographyComponent } from '../components';
+import { IGraphicItem, ISelectComponent } from './interfaces/screens.interface';
+
 
 const GraphicsScreen = () => {
 
   const [selectItems, setSelectItems] = useState<ISelectComponent[]>([]);
   const [graphicsItems, setGraphicsItems] = useState<IGraphicItem[]>([]);
-  const { setLoading } = useLoading();
+
+  const { fetchData: getClientCodeList } = useGetClientCodeList()
+  const { fetchData: getSum } = useGetSum()
 
   const handleSelectChange = (selectCode: string) => {
     listBillsByClientCodeData(selectCode)
   };
 
   const listClients = async () => {
-    setLoading(true);
 
     try {
-      const response = await api.get('/bills/clients');
-      const data: { data: IClientCode[] } = response.data;
-      
-        if(data.data) setLoading(false);
+      const response = await getClientCodeList();
+
+      if(!response?.data) return
   
-      const mappedItems = data.data.map(item => ({
+      const mappedItems = response.data.map(item => ({
         value: item.clientCode,
         label: item.clientCode
       }));
@@ -41,33 +39,30 @@ const GraphicsScreen = () => {
   };
 
   const listBillsByClientCodeData = async (clientCode: string | undefined) => {
-     setLoading(true);
+
     try {
       if(clientCode === undefined) clientCode = '';
-      const response = await api.get(`/bills/?client_code=${clientCode}`);
-      const data: { data: ISumGraphics } = response.data;
 
-      if(data.data) setLoading(false);
+      const response = await getSum(clientCode);
 
-      if(data){
-        setGraphicsItems([
-          {
-            label: 'Gráfico',
-            data: [response.data.data.electricPowerConsumptionInKwh, response.data.data.compensatedEnergyInKwh],
-            labels: ['Consumo de Energia Elétrica - KWh', 'Energia Compensada - kWh'],
-            backgroundColor: ['#FF6384', '#36A2EB'],
-            title: 'Perspectiva em KWH',
-          },
-          {
-            label: 'Gráfico',
-            data: [response.data.data.totalValueWithoutGdInR$, response.data.data.gDEconomyInR$],
-            labels: ['Valor Total sem GD - R$', 'Economia GD - R$'],
-            backgroundColor: ['#FF6384', '#00b061'],
-            title: 'Perspectiva em R$',
-          },
-        ]);
-      }
+      if(!response?.data) return
 
+      setGraphicsItems([
+        {
+          label: 'Gráfico',
+          data: [response.data.electricPowerConsumptionInKwh, response.data.compensatedEnergyInKwh],
+          labels: ['Consumo de Energia Elétrica - KWh', 'Energia Compensada - kWh'],
+          backgroundColor: ['#FF6384', '#36A2EB'],
+          title: 'Perspectiva em KWH',
+        },
+        {
+          label: 'Gráfico',
+          data: [response.data.totalValueWithoutGdInR$, response.data.gDEconomyInR$],
+          labels: ['Valor Total sem GD - R$', 'Economia GD - R$'],
+          backgroundColor: ['#FF6384', '#00b061'],
+          title: 'Perspectiva em R$',
+        },
+      ]);
 
     } catch (error) {
       console.error('Erro na chamada à API', error);
