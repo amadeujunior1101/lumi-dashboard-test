@@ -48,7 +48,7 @@ const TopBar: React.FC = () => {
             </IconButton>
           )}
           <Typography variant="h6" sx={{ flexGrow: 1, color: `${colors.white}`, fontFamily: 'inherit' }}>
-            Dashboard state less
+            Dashboard Lumi - teste prático
           </Typography>
         </Toolbar>
       </AppBar>
