@@ -1,5 +1,5 @@
 import { apiService } from '../../service/api'
-import { Client } from '../entities'
+import { Client } from '../interfaces'
 
 export interface GetClientCodeListUsecase {
   perform(): Promise<GetClientCodeListUsecase.Response>

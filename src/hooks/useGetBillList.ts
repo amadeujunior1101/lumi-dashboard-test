@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { GetBillList } from '../domain/useCases'
-import { Bill } from '../domain/entities'
+import { Bill } from '../domain/interfaces'
 import { useLoading } from '../loading.context'
 
 const useGetBillList = () => {

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { GetSum } from '../domain/useCases'
-import { Sum } from '../domain/entities'
+import { Sum } from '../domain/interfaces'
 import { useLoading } from '../loading.context'
 
 const useGetSum = () => {

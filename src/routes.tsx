@@ -1,8 +1,8 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/layout';
-import { BillsScreen } from './screens/bills.screen';
-import { GraphicsScreen } from './screens/graphics.screen';
-import { HomeScreen } from './screens/home.screen';
+import { HomeScreen } from './pages/home.screen';
+import { BillsScreen } from './pages/bills.screen';
+import { GraphicsScreen } from './pages/graphics.screen';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 const RouteComponent = () => {
   return (

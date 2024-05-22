@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Bill, Client } from '../domain/entities'
+import { Bill, Client } from '../domain/interfaces'
 import { useLoading } from '../loading.context'
 import { GetClientCodeList } from '../domain/useCases'
 

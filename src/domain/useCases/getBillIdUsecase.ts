@@ -1,5 +1,5 @@
 import { apiService } from '../../service/api'
-import { BillDownload } from '../entities'
+import { BillDownload } from '../interfaces'
 
 export interface GetBillIdUsecase {
   perform(params: GetBillIdUsecase.Params): Promise<GetBillIdUsecase.Response>

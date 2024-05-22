@@ -1,5 +1,5 @@
 import { apiService } from '../../service/api'
-import { Bill } from '../entities'
+import { Bill } from '../interfaces'
 
 export interface GetBillListUsecase {
   perform(

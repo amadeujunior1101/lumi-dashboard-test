@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BillDownload } from '../domain/entities'
+import { BillDownload } from '../domain/interfaces'
 import { useLoading } from '../loading.context'
 import { GetBillId } from '../domain/useCases'
 

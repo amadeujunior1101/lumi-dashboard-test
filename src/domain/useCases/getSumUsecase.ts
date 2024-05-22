@@ -1,5 +1,5 @@
 import { apiService } from '../../service/api'
-import { Sum } from '../entities'
+import { Sum } from '../interfaces'
 
 export interface GetSumUsecase {
   perform(params: GetSumUsecase.Params): Promise<GetSumUsecase.Response>
