@@ -2,7 +2,7 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { ReactNode } from 'react';
 import { useLoading } from '../loading.context';
 import { LoadingComponent } from './loading';
-import Sidebar from './sidebar';
+import { Sidebar } from './sidebar';
 import TopBar from './topBar';
 
 interface LayoutProps {

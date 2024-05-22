@@ -10,10 +10,16 @@ import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { colors } from '../colors';
+import { getListItemStyle, listItemHoverStyle } from '../helpers/menuHover.helper';
+import { sidebarListItems } from '../pages/configs/listsItems';
+import { useSidebarProvider } from '../sidebar.context';
 
 const TopBar: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:600px)');
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const { selectedNavItem, setSelectedNavItem } = useSidebarProvider();
+
 
   const handleDrawerOpen = () => {
     setDrawerOpen(true);
@@ -23,8 +29,13 @@ const TopBar: React.FC = () => {
     setDrawerOpen(false);
   };
 
+  const handleItemClick = (itemName: string) => {
+    setSelectedNavItem(itemName);
+  };
+
   const gradientStyle = {
-    background: 'linear-gradient(319deg, #00ff89, #00d775 6%, #00b061 16%, #008b4d 27%, #00673a 37%, #005632 47%, #00452a 57%, #003521 67%, #003020 77%, #002c1f 87%, #01271e 95%, #02231c)',
+    background: `linear-gradient(319deg, #00ff89, #00d775 6%, #00b061 16%, #008b4d 27%, #00673a 37%, 
+      #005632 47%, #00452a 57%, #003521 67%, #003020 77%, #002c1f 87%, #01271e 95%, #02231c)`,
   };
 
   return (
@@ -36,30 +47,34 @@ const TopBar: React.FC = () => {
               <MenuIcon />
             </IconButton>
           )}
-          <Typography variant="h6" sx={{ flexGrow: 1, color: '#FFF', fontFamily: 'inherit' }}>
-            Lumi - Dashboard
+          <Typography variant="h6" sx={{ flexGrow: 1, color: `${colors.white}`, fontFamily: 'inherit' }}>
+            Dashboard state less
           </Typography>
         </Toolbar>
       </AppBar>
 
       {/* Drawer */}
-      {isMobile && (
+      {isMobile && ( 
         <Drawer
           anchor="left"
           open={drawerOpen}
           onClose={handleDrawerClose}
           variant={isMobile ? 'temporary' : 'permanent'}
         >
-          <List>
-            <ListItem button component={Link} to="/">
-              <ListItemText primary="Home" />
-            </ListItem>
-            <ListItem button component={Link} to="/graphics">
-              <ListItemText primary="Gráficos" />
-            </ListItem>
-            <ListItem button component={Link} to="/bills">
-              <ListItemText primary="Faturas" />
-            </ListItem>
+          <List style={{marginTop: '-8px'}}>
+              {
+                sidebarListItems.map(item=>{  
+                  return(
+                    <ListItem key={item.resourceName} component={Link} to={item.pathUrl} 
+                        style={getListItemStyle(item.resourceName, selectedNavItem)}
+                        sx={listItemHoverStyle} 
+                        onClick={() => handleItemClick(item.resourceName)}
+                      >
+                      <ListItemText primary={item.titleName} />
+                    </ListItem>
+                )
+                })
+              }
           </List>
         </Drawer>
       )}
